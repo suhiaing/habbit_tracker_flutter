@@ -3,7 +3,6 @@ import 'package:habbit_tracker_flutter/data/read_file.dart';
 import 'package:habbit_tracker_flutter/pages/home.dart';
 import 'package:habbit_tracker_flutter/providers/star_provider.dart';
 import 'package:habbit_tracker_flutter/stars.dart';
-import 'package:habbit_tracker_flutter/widgets/stars_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeWithStarPVD extends StatefulWidget {
