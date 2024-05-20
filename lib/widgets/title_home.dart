@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
-import 'package:habbit_tracker_flutter/widgets/popupmenu_item_home.dart';
-import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -23,43 +21,71 @@ class _TitleHomeState extends State<TitleHome> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: Consumer<HomePVD>(builder: ((context, homePVD, _) {
-        return Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                child: Text(
-                  widget.title,
-                  style: const TextStyle(
-                    fontSize: 23,
-                  ),
-                ),
+      child: Consumer<TitleHomePVD>(builder: ((context, titleHomePVD, _) {
+        return GestureDetector(
+          onDoubleTap: () {
+            final titleRenameController = TextEditingController();
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Wanna rename ${widget.title} ?'),
+                    content: SizedBox(
+                      height: 50,
+                      child: TextField(
+                        controller: titleRenameController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter a new plan name',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          if (titleRenameController.text != "") {
+                            titleHomePVD.rename(
+                                titleRenameController.text, widget.index);
+                            Navigator.pop(context);
+                            setState(() {
+                              widget.title = titleRenameController.text;
+                            });
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Enter the name please',
+                                ),
+                                duration: Duration(milliseconds: 1000),
+                              ),
+                            );
+                          }
+                        },
+                        child: const Text('OK'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                });
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text(
+              widget.title,
+              style: const TextStyle(
+                fontSize: 23,
               ),
-              IconButton(
-                  alignment: Alignment.bottomLeft,
-                  onPressed: () {
-                    final titleRenameController = TextEditingController();
-                    showPopover(
-                      barrierColor: Colors.transparent,
-                      transitionDuration: const Duration(milliseconds: 100),
-                      width: 120,
-                      height: 100,
-                      direction: PopoverDirection.right,
-                      context: context,
-                      bodyBuilder: ((context) {
-                        return PopUpMenuItem(
-                          title: widget.title,
-                          index: widget.index,
-                          titleHomePVD: homePVD,
-                          titleRenameController: titleRenameController,
-                        );
-                      }),
-                    );
-                  },
-                  icon: const Icon(Icons.more_vert_outlined))
-            ],
+            ),
           ),
         );
       })),

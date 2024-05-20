@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker_flutter/pages/home_with_starpvd.dart';
+import 'package:habbit_tracker_flutter/pages/home_with_starPVD.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
 import 'package:habbit_tracker_flutter/providers/special_checkbox_provider.dart';
 import 'package:habbit_tracker_flutter/providers/star_provider.dart';
+import 'package:habbit_tracker_flutter/widgets/up_bar_home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -10,7 +11,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: ((context) => StarPVD())),
-        ChangeNotifierProvider(create: (((context) => HomePVD()))),
+        ChangeNotifierProvider(create: (((context) => TitleHomePVD()))),
         ChangeNotifierProvider(create: ((context) => SpecialCheckBoxPVD()))
       ],
       child: const MyApp(),
