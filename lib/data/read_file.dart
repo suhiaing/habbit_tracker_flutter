@@ -14,13 +14,12 @@ Future<List<dynamic>> readFile() async {
   }
 }
 
-Future<int> readAmount() async {
-  final file = File("data_amount.txt");
+Future<int> readStar() async {
+  final file = File("stars.txt");
 
   try {
     final data2 = await file.readAsString();
     final data = int.parse(data2);
-    print("readAmount: $data");
     return data;
   } catch (e) {
     return Future.error('Error reading file: $e');

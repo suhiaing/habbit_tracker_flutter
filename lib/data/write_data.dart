@@ -16,7 +16,7 @@ Future<void> writeData(List<dynamic> content) async {
   }
 }
 
-Future<void> wirteAmount(int amount) async {
+Future<void> wirteStar(int amount) async {
   try {
     final file = File("data_amount.txt");
 

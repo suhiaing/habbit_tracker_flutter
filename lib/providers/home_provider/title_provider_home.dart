@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/constants.dart';
-import 'package:habbit_tracker_flutter/data/write_data.dart';
+import 'package:habbit_tracker_flutter/providers/pvd.dart';
 
-class TitleHomePVD extends ChangeNotifier {
+class TitleHomePVD extends PVD {
   void rename(String newName, int index) {
     constants[index]["title"] = newName;
-    notifyListeners();
-    writeData(constants);
+    ntWData();
   }
 }

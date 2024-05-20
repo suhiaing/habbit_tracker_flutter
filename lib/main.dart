@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker_flutter/pages/home.dart';
+import 'package:habbit_tracker_flutter/pages/home_with_starPVD.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
 import 'package:habbit_tracker_flutter/providers/special_checkbox_provider.dart';
+import 'package:habbit_tracker_flutter/providers/star_provider.dart';
+import 'package:habbit_tracker_flutter/widgets/up_bar_home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: ((context) => StarPVD())),
         ChangeNotifierProvider(create: (((context) => TitleHomePVD()))),
         ChangeNotifierProvider(create: ((context) => SpecialCheckBoxPVD()))
       ],
@@ -22,12 +25,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorSchemeSeed: const Color.fromARGB(255, 181, 255, 97),
+        colorSchemeSeed: Colors.yellow,
         fontFamily: "NotoSans",
       ),
       home: const Scaffold(
-        body: Home(),
+        body: HomeWithStarPVD(),
       ),
     );
   }

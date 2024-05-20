@@ -57,6 +57,31 @@ class _HomeState extends State<Home> {
           constants = snapshot.data!;
           return LayoutBuilder(
             builder: ((context, constraints) {
+              var boxDecorationHome = BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(4, 4),
+                      blurRadius: 15,
+                      spreadRadius: 5,
+                    ),
+                    BoxShadow(
+                      color: Colors.white70,
+                      offset: Offset(-4, -4),
+                      blurRadius: 15,
+                      spreadRadius: 5,
+                    )
+                  ]);
+
+              var sliverGridDelegateWithFixedCrossAxisCountHome =
+                  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: itemCountByConstraints(constraints),
+                mainAxisSpacing: 50.0,
+                crossAxisSpacing: 70,
+                childAspectRatio: constraints.maxWidth < 750 ? 2 : 1.2,
+              );
+
               return Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
                 child: Column(
@@ -70,57 +95,37 @@ class _HomeState extends State<Home> {
                       child: GridView.builder(
                           itemCount: constants.length,
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: itemCountByConstraints(constraints),
-                            mainAxisSpacing: 50.0,
-                            crossAxisSpacing: 70,
-                            childAspectRatio:
-                                constraints.maxWidth < 750 ? 2 : 1.2,
-                          ),
+                              sliverGridDelegateWithFixedCrossAxisCountHome,
                           itemBuilder: (context, index) {
                             Map plans = constants[index];
                             String title = plans["title"];
                             String duration = plans["duration"];
                             double successRate = plans["success_rate"];
 
+                            var circularPercentIndicator =
+                                CircularPercentIndicator(
+                              radius: 85,
+                              lineWidth: 16,
+                              percent: (successRate / 100),
+                              progressColor: successRateColor(successRate),
+                              backgroundColor: successRateColor(successRate)
+                                  .withOpacity(0.25),
+                              center: Text(
+                                "${successRate.toString()}%",
+                                style: const TextStyle(fontSize: 28),
+                              ),
+                              circularStrokeCap: CircularStrokeCap.round,
+                            );
+
                             return GestureDetector(
+                              onTap: () {},
                               child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        offset: Offset(4, 4),
-                                        blurRadius: 15,
-                                        spreadRadius: 5,
-                                      ),
-                                      BoxShadow(
-                                        color: Colors.white70,
-                                        offset: Offset(-4, -4),
-                                        blurRadius: 15,
-                                        spreadRadius: 5,
-                                      )
-                                    ]),
+                                decoration: boxDecorationHome,
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    CircularPercentIndicator(
-                                      radius: 85,
-                                      lineWidth: 16,
-                                      percent: (successRate / 100),
-                                      progressColor:
-                                          successRateColor(successRate),
-                                      backgroundColor:
-                                          successRateColor(successRate)
-                                              .withOpacity(0.25),
-                                      center: Text(
-                                        "${successRate.toString()}%",
-                                        style: const TextStyle(fontSize: 28),
-                                      ),
-                                      circularStrokeCap:
-                                          CircularStrokeCap.round,
-                                    ),
+                                    circularPercentIndicator,
                                     TitleHome(
                                       title: title,
                                       index: index,
