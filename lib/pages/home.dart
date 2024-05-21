@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/constants.dart';
 import 'package:habbit_tracker_flutter/data/read_file.dart';
+import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
+import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
 import 'package:habbit_tracker_flutter/widgets/title_home.dart';
 import 'package:habbit_tracker_flutter/widgets/up_bar_home_page.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -91,57 +94,67 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Expanded(
-                      child: GridView.builder(
-                          itemCount: constants.length,
-                          gridDelegate:
-                              sliverGridDelegateWithFixedCrossAxisCountHome,
-                          itemBuilder: (context, index) {
-                            Map plans = constants[index];
-                            String title = plans["title"];
-                            String duration = plans["duration"];
-                            double successRate = plans["success_rate"];
+                    Consumer<HomePVD>(builder: (context, homePVD, _) {
+                      return Expanded(
+                        child: GridView.builder(
+                            itemCount: constants.length,
+                            gridDelegate:
+                                sliverGridDelegateWithFixedCrossAxisCountHome,
+                            itemBuilder: (context, index) {
+                              Map plans = constants[index];
+                              String duration = plans["duration"];
+                              double successRate = plans["success_rate"];
 
-                            var circularPercentIndicator =
-                                CircularPercentIndicator(
-                              radius: 85,
-                              lineWidth: 16,
-                              percent: (successRate / 100),
-                              progressColor: successRateColor(successRate),
-                              backgroundColor: successRateColor(successRate)
-                                  .withOpacity(0.25),
-                              center: Text(
-                                "${successRate.toString()}%",
-                                style: const TextStyle(fontSize: 28),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                            );
-
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                decoration: boxDecorationHome,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    circularPercentIndicator,
-                                    TitleHome(
-                                      title: title,
-                                      index: index,
-                                    ),
-                                    Text(
-                                      duration,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blueGrey.shade300),
-                                    ),
-                                  ],
+                              var circularPercentIndicator =
+                                  CircularPercentIndicator(
+                                radius: 85,
+                                lineWidth: 16,
+                                percent: (successRate / 100),
+                                progressColor: successRateColor(successRate),
+                                backgroundColor: successRateColor(successRate)
+                                    .withOpacity(0.25),
+                                center: Text(
+                                  "${successRate.toString()}%",
+                                  style: const TextStyle(fontSize: 28),
                                 ),
-                              ),
-                            );
-                          }),
-                    ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                              );
+
+                              return GestureDetector(
+                                onLongPress: () {
+                                  homePVD.removePlan(index);
+                                },
+                                child: Container(
+                                  decoration: boxDecorationHome,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      circularPercentIndicator,
+                                      Consumer<TitleHomePVD>(
+                                          builder: ((context, titleHomePVD, _) {
+                                        String titleForTitleHomePVd =
+                                            constants[index]["title"];
+
+                                        return TitleHome(
+                                          title: titleForTitleHomePVd,
+                                          index: index,
+                                          titleHomePVD: titleHomePVD,
+                                        );
+                                      })),
+                                      Text(
+                                        duration,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.blueGrey.shade300),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      );
+                    }),
                   ],
                 ),
               );
