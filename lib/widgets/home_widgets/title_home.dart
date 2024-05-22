@@ -21,7 +21,7 @@ class TitleHome extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             width: 255,
             child: Center(
               child: Text(

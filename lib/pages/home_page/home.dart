@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/data/constants.dart';
 import 'package:habbit_tracker_flutter/data/read_file.dart';
+import 'package:habbit_tracker_flutter/pages/second_page/second_page.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
+import 'package:habbit_tracker_flutter/providers/second_page_provider.dart';
 import 'package:habbit_tracker_flutter/providers/star_provider.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/title_home.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/up_bar_home_page.dart';
@@ -125,6 +127,19 @@ class _HomeState extends State<Home> {
                               );
 
                               return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Consumer<SecondPVD>(
+                                        builder: (context, secondPVD, _) {
+                                      Map plan = constants[index];
+                                      return Second(
+                                        plan: plan,
+                                        secondPVD: secondPVD,
+                                      );
+                                    });
+                                  }));
+                                },
                                 onLongPress: () {
                                   showDialog(
                                       context: context,
