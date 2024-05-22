@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker_flutter/constants.dart';
+import 'package:habbit_tracker_flutter/data/constants.dart';
 import 'package:habbit_tracker_flutter/providers/pvd.dart';
 import 'package:intl/intl.dart';
 

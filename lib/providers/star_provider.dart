@@ -1,5 +1,5 @@
 import 'package:habbit_tracker_flutter/providers/pvd.dart';
-import 'package:habbit_tracker_flutter/stars.dart';
+import 'package:habbit_tracker_flutter/data/stars.dart';
 
 class StarPVD extends PVD {
   int starpvd = stars;

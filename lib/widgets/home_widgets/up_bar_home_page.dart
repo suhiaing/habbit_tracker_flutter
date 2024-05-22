@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/providers/star_provider.dart';
-import 'package:habbit_tracker_flutter/widgets/stars_widget.dart';
+import 'package:habbit_tracker_flutter/widgets/home_widgets/stars_widget.dart';
 
 class UpBarHomePage extends StatelessWidget {
   const UpBarHomePage({super.key, required this.starPVD});

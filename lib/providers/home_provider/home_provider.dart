@@ -1,4 +1,4 @@
-import 'package:habbit_tracker_flutter/constants.dart';
+import 'package:habbit_tracker_flutter/data/constants.dart';
 import 'package:habbit_tracker_flutter/providers/pvd.dart';
 
 class HomePVD extends PVD {

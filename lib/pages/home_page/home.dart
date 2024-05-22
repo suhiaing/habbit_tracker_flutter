@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker_flutter/constants.dart';
+import 'package:habbit_tracker_flutter/data/constants.dart';
 import 'package:habbit_tracker_flutter/data/read_file.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
