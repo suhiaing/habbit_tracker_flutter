@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorSchemeSeed: Colors.yellow,
+        colorSchemeSeed: Colors.lightGreen.shade200,
         fontFamily: "NotoSans",
       ),
       home: const Scaffold(
