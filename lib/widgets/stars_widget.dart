@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker_flutter/stars.dart';
+import 'package:habbit_tracker_flutter/providers/star_provider.dart';
 
 class Stars extends StatefulWidget {
-  const Stars({super.key});
-
+  const Stars({super.key, required this.starPVD});
+  final StarPVD starPVD;
   @override
   State<Stars> createState() => _StarsState();
 }
@@ -36,7 +36,7 @@ class _StarsState extends State<Stars> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            stars.toString(),
+            "${widget.starPVD.starpvd}",
             style: const TextStyle(
               fontSize: 18,
               color: Colors.black54,

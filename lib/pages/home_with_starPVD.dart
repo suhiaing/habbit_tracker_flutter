@@ -30,7 +30,9 @@ class _HomeWithStarPVDState extends State<HomeWithStarPVD> {
         }
         stars = snapshot.data!;
         return Consumer<StarPVD>(builder: (context, starPVD, _) {
-          return const Home();
+          return Home(
+            starPVD: starPVD,
+          );
         });
       }),
     );

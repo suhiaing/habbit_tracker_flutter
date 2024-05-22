@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/constants.dart';
 import 'package:habbit_tracker_flutter/data/write_data.dart';
-import 'package:habbit_tracker_flutter/stars.dart';
 
 class PVD extends ChangeNotifier {
   void ntWData() {
@@ -9,7 +8,7 @@ class PVD extends ChangeNotifier {
     writeData(constants);
   }
 
-  void ntWStars() {
+  void ntWStars(int stars) {
     notifyListeners();
     wirteStar(stars);
   }

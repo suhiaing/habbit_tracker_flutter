@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
 
 // ignore: must_be_immutable
-class TitleHome extends StatefulWidget {
+class TitleHome extends StatelessWidget {
   TitleHome(
       {super.key,
       required this.title,
@@ -14,11 +14,6 @@ class TitleHome extends StatefulWidget {
   final TitleHomePVD titleHomePVD;
 
   @override
-  State<TitleHome> createState() => _TitleHomeState();
-}
-
-class _TitleHomeState extends State<TitleHome> {
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
         child: Padding(
@@ -26,10 +21,16 @@ class _TitleHomeState extends State<TitleHome> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            widget.title,
-            style: const TextStyle(
-              fontSize: 23,
+          Container(
+            width: 255,
+            child: Center(
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
             ),
           ),
           const SizedBox(
@@ -42,7 +43,7 @@ class _TitleHomeState extends State<TitleHome> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('Wanna rename ${widget.title} ?'),
+                        title: Text('Wanna rename $title ?'),
                         content: SizedBox(
                           height: 50,
                           child: TextField(
@@ -59,12 +60,9 @@ class _TitleHomeState extends State<TitleHome> {
                           TextButton(
                             onPressed: () {
                               if (titleRenameController.text != "") {
-                                widget.titleHomePVD.rename(
-                                    titleRenameController.text, widget.index);
+                                titleHomePVD.rename(
+                                    titleRenameController.text, index);
                                 Navigator.pop(context);
-                                // setState(() {
-                                //   widget.title = titleRenameController.text;
-                                // });
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(

@@ -2,23 +2,19 @@ import 'package:habbit_tracker_flutter/providers/pvd.dart';
 import 'package:habbit_tracker_flutter/stars.dart';
 
 class StarPVD extends PVD {
+  int starpvd = stars;
   void createNewPlan() {
-    stars -= 20;
-    ntWStars();
+    starpvd -= 20;
+    ntWStars(starpvd);
   }
 
   void deletePlan() {
-    stars -= 50;
-    ntWStars();
+    starpvd -= 50;
+    ntWStars(starpvd);
   }
 
-  void getHundredPercentageBonus() {
-    stars += 10;
-    ntWStars();
-  }
-
-  void increaseOnePercentage() {
-    stars += 1;
-    ntWStars();
+  void getHundredPercentage() {
+    starpvd += 100;
+    ntWStars(starpvd);
   }
 }

@@ -3,13 +3,15 @@ import 'package:habbit_tracker_flutter/constants.dart';
 import 'package:habbit_tracker_flutter/data/read_file.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
-import 'package:habbit_tracker_flutter/widgets/title_home.dart';
-import 'package:habbit_tracker_flutter/widgets/up_bar_home_page.dart';
+import 'package:habbit_tracker_flutter/providers/star_provider.dart';
+import 'package:habbit_tracker_flutter/widgets/home_widgets/title_home.dart';
+import 'package:habbit_tracker_flutter/widgets/home_widgets/up_bar_home_page.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({super.key, required this.starPVD});
+  final StarPVD starPVD;
 
   @override
   State<Home> createState() => _HomeState();
@@ -36,11 +38,11 @@ class _HomeState extends State<Home> {
   }
 
   int itemCountByConstraints(BoxConstraints constraints) {
-    if (constraints.maxWidth < 750) {
+    if (constraints.maxWidth < 800) {
       return 1;
-    } else if (constraints.maxWidth < 1100) {
+    } else if (constraints.maxWidth < 1210) {
       return 2;
-    } else if (constraints.maxWidth < 1450) {
+    } else if (constraints.maxWidth < 1610) {
       return 3;
     }
     return 4;
@@ -82,7 +84,7 @@ class _HomeState extends State<Home> {
                 crossAxisCount: itemCountByConstraints(constraints),
                 mainAxisSpacing: 50.0,
                 crossAxisSpacing: 70,
-                childAspectRatio: constraints.maxWidth < 750 ? 2 : 1.2,
+                childAspectRatio: constraints.maxWidth < 800 ? 2 : 1.2,
               );
 
               return Padding(
@@ -90,7 +92,9 @@ class _HomeState extends State<Home> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const UpBarHomePage(),
+                    UpBarHomePage(
+                      starPVD: widget.starPVD,
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -115,14 +119,45 @@ class _HomeState extends State<Home> {
                                     .withOpacity(0.25),
                                 center: Text(
                                   "${successRate.toString()}%",
-                                  style: const TextStyle(fontSize: 28),
+                                  style: const TextStyle(fontSize: 25),
                                 ),
                                 circularStrokeCap: CircularStrokeCap.round,
                               );
 
                               return GestureDetector(
                                 onLongPress: () {
-                                  homePVD.removePlan(index);
+                                  showDialog(
+                                      context: context,
+                                      builder: ((context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              "Do you want to delete ${plans["title"]} ?"),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                homePVD.removePlan(index);
+                                                widget.starPVD.deletePlan();
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                "Yes",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                "No",
+                                                style: TextStyle(
+                                                    color: Colors.blue),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }));
                                 },
                                 child: Container(
                                   decoration: boxDecorationHome,

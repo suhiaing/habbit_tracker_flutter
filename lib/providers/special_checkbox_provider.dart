@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/constants.dart';
-import 'package:habbit_tracker_flutter/providers/main_provider.dart';
+import 'package:habbit_tracker_flutter/providers/pvd.dart';
 import 'package:intl/intl.dart';
 
-class SpecialCheckBoxPVD extends MainPVDS {
+class SpecialCheckBoxPVD extends PVD {
   List scbConstants = constants;
 
   String todayDate() {
@@ -18,8 +18,7 @@ class SpecialCheckBoxPVD extends MainPVDS {
     if (today == currentDate) {
       constants[indexOfConstants]["data"][indexOfData]["done"] =
           !constants[indexOfConstants]["data"][indexOfData]["done"];
-      nl();
-      refreshData(constants);
+      ntWData();
     }
   }
 

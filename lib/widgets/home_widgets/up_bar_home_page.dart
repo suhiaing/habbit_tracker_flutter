@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_tracker_flutter/providers/star_provider.dart';
 import 'package:habbit_tracker_flutter/widgets/stars_widget.dart';
 
 class UpBarHomePage extends StatelessWidget {
-  const UpBarHomePage({super.key});
-
+  const UpBarHomePage({super.key, required this.starPVD});
+  final StarPVD starPVD;
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           textAlign: TextAlign.right,
           "  Your Consistency, Your habbe",
           style: TextStyle(
-            fontSize: 38,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Expanded(child: SizedBox()),
-        Stars(),
-        SizedBox(
+        const Expanded(child: SizedBox()),
+        Stars(
+          starPVD: starPVD,
+        ),
+        const SizedBox(
           width: 20,
         ),
       ],
