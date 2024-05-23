@@ -25,13 +25,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
-
     return MaterialApp(
-      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorSchemeSeed: Colors.lightGreen.shade200,
+        colorSchemeSeed: Colors.yellow,
         fontFamily: "NotoSans",
       ),
       home: const Scaffold(

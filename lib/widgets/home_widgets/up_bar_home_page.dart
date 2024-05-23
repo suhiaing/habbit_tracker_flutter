@@ -10,12 +10,11 @@ class UpBarHomePage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           textAlign: TextAlign.right,
           "  Your Consistency, Your habbe",
           style: TextStyle(
-            color: Colors.lightGreen.shade600,
-            fontSize: 34.5,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),

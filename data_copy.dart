@@ -3,7 +3,6 @@ const data = [
     "title": "Self-Improving plan",
     "duration": "14 May to 20 May",
     "moti": "take time",
-    "previous_success_rate": 40.0,
     "success_rate": 63.8,
     "habbits": [
       {
@@ -96,7 +95,6 @@ const data = [
     "title": "Skin Care Routine",
     "duration": "15 May to 29 May",
     "moti": "Consistency is Key",
-    "previous_success_rate": 12.2,
     "success_rate": 30.89,
     "habbits": [
       {
@@ -285,7 +283,38 @@ const data = [
     "title": "Weight Lost In 30 days",
     "duration": "14 May to 20 May",
     "moti": "take time",
-    "previous_success_rate": 87.54,
+    "success_rate": 88.54,
+    "habbits": [
+      {
+        "habbitName": "Code everyday",
+        "data": [
+          {"date": "14 May", "done": true, "note": ""},
+          {"date": "15 May", "done": false, "note": ""},
+          {"date": "16 May", "done": true, "note": ""}
+        ]
+      }
+    ]
+  },
+  {
+    "title": "30 pj 30 days",
+    "duration": "14 May to 20 May",
+    "moti": "take time",
+    "success_rate": 88.54,
+    "habbits": [
+      {
+        "habbitName": "Code everyday",
+        "data": [
+          {"date": "14 May", "done": true, "note": ""},
+          {"date": "15 May", "done": false, "note": ""},
+          {"date": "16 May", "done": true, "note": ""}
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Daily Habbits",
+    "duration": "14 May to 20 May",
+    "moti": "take time",
     "success_rate": 88.54,
     "habbits": [
       {
