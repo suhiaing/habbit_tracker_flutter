@@ -4,7 +4,6 @@ import 'package:habbit_tracker_flutter/data/read_file.dart';
 import 'package:habbit_tracker_flutter/pages/second_page/second_page.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
-import 'package:habbit_tracker_flutter/providers/second_page_provider.dart';
 import 'package:habbit_tracker_flutter/providers/star_provider.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/title_home.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/up_bar_home_page.dart';
@@ -12,8 +11,9 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key, required this.starPVD});
+  const Home({super.key, required this.starPVD, this.navigatorKey});
   final StarPVD starPVD;
+  final GlobalKey<NavigatorState>? navigatorKey;
 
   @override
   State<Home> createState() => _HomeState();
@@ -131,14 +131,10 @@ class _HomeState extends State<Home> {
                                   onTap: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
-                                      return Consumer<SecondPVD>(
-                                          builder: (context, secondPVD, _) {
-                                        Map plan = constants[index];
-                                        return Second(
-                                          plan: plan,
-                                          secondPVD: secondPVD,
-                                        );
-                                      });
+                                      return Second(
+                                        plan: plans,
+                                        indexOfConstant: index,
+                                      );
                                     }));
                                   },
                                   onLongPress: () {

@@ -1,62 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker_flutter/providers/second_page_provider.dart';
+import 'package:habbit_tracker_flutter/widgets/special_checkbox.dart';
+import 'package:provider/provider.dart';
 
 class Second extends StatelessWidget {
-  const Second({super.key, required this.plan, required this.secondPVD});
+  const Second({
+    super.key,
+    required this.plan,
+    required this.indexOfConstant,
+  });
   final Map plan;
-  final SecondPVD secondPVD;
+  final int indexOfConstant;
 
   @override
   Widget build(BuildContext context) {
     final scrollController = ScrollController();
+
+    String title = plan["title"];
+    String duration = plan["duration"];
+    String moti = plan["moti"];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          ),
           toolbarHeight: 220,
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    plan["title"],
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Text(plan["duration"],
-                      style: const TextStyle(fontSize: 20, color: Colors.grey)),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text(
-                    plan["moti"],
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                        color: Colors.lightGreen.shade600),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.edit_outlined))
-                ],
-              ),
-              const SizedBox(
-                height: 90,
-              )
-            ],
-          ),
+          title: SecondAppBar(title: title, duration: duration, moti: moti),
         ),
         body: LayoutBuilder(builder: (context, constraints) {
           return Padding(
@@ -71,10 +37,11 @@ class Second extends StatelessWidget {
                 child: SizedBox(
                   height: 1000,
                   child: ListView.builder(
+                      //itemCount = 7 for index 1
                       controller: scrollController,
                       itemCount: plan["habbits"][0]["data"].length,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, itemCount) {
+                      itemBuilder: (context, index) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -104,7 +71,7 @@ class Second extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  "Day\n  ${(itemCount + 1).toString()}",
+                                  "Day\n  ${(index + 1).toString()}",
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 30,
@@ -137,7 +104,7 @@ class Second extends StatelessWidget {
                                               BorderRadius.circular(10)),
                                       child: Center(
                                         child: Text(
-                                          plan["habbits"][0]["data"][itemCount]
+                                          plan["habbits"][0]["data"][index]
                                               ["date"],
                                           style: const TextStyle(
                                               fontSize: 17,
@@ -161,8 +128,26 @@ class Second extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(plan["habbits"][index]
-                                                  ["habbitName"]),
+                                              Container(
+                                                width: 200,
+                                                child: Text(plan["habbits"]
+                                                    [index]["habbitName"]),
+                                              ),
+                                              Consumer(builder: (context,
+                                                  specialCheckobxPVD, _) {
+                                                bool done = plan["habbits"]
+                                                        [index]["data"][index]
+                                                    ["done"];
+
+                                                return SpecialCheckbox(
+                                                  done: done,
+                                                  date: plan["habbits"][0]
+                                                      ["data"][index]["date"],
+                                                  indexOfConstants:
+                                                      indexOfConstant,
+                                                  indexOfData: index,
+                                                );
+                                              })
                                             ],
                                           ),
                                         );
@@ -181,6 +166,71 @@ class Second extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+}
+
+class SecondAppBar extends StatelessWidget {
+  const SecondAppBar({
+    super.key,
+    required this.title,
+    required this.duration,
+    required this.moti,
+  });
+
+  final String title;
+  final String duration;
+  final String moti;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 30),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(duration,
+                style: const TextStyle(fontSize: 20, color: Colors.grey)),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            const SizedBox(
+              width: 40,
+            ),
+            Text(
+              moti,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50,
+                  color: Colors.lightGreen.shade600),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.edit_outlined))
+          ],
+        ),
+        const SizedBox(
+          height: 90,
+        )
+      ],
     );
   }
 }
