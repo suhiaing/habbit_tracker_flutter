@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:habbit_tracker_flutter/providers/special_checkbox_provider.dart';
 import 'package:habbit_tracker_flutter/widgets/special_checkbox.dart';
 import 'package:provider/provider.dart';
 
 class Second extends StatelessWidget {
-  const Second({
-    super.key,
-    required this.plan,
-  });
+  const Second({super.key, required this.plan, required this.indexOfConstant});
   final Map plan;
+  final int indexOfConstant;
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +49,14 @@ class Second extends StatelessWidget {
                   const SizedBox(
                     width: 40,
                   ),
-                  Text(
-                    moti,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                        color: Colors.lightGreen.shade600),
+                  SizedBox(
+                    child: Text(
+                      moti,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50,
+                          color: Colors.lightGreen.shade600),
+                    ),
                   ),
                   const SizedBox(
                     width: 20,
@@ -65,8 +65,9 @@ class Second extends StatelessWidget {
                       onPressed: () {}, icon: const Icon(Icons.edit_outlined))
                 ],
               ),
-              const SizedBox(
-                height: 90,
+              Container(
+                color: Colors.white,
+                height: 95,
               )
             ],
           ),
@@ -76,6 +77,7 @@ class Second extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(2.0),
               child: Container(
+                color: Colors.white,
                 child: Scrollbar(
                   thumbVisibility: true,
                   trackVisibility: true,
@@ -88,9 +90,9 @@ class Second extends StatelessWidget {
                       controller: scrollController,
                       itemCount: plan["habbits"].length,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        List data = plan["habbits"][index]["data"];
-                        String date = plan["habbits"][index]["date"];
+                      itemBuilder: (context, index2) {
+                        List data = plan["habbits"][index2]["data"];
+                        String date = plan["habbits"][index2]["date"];
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -120,7 +122,7 @@ class Second extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  "Day\n  ${(index + 1).toString()}",
+                                  "Day\n  ${(index2 + 1).toString()}",
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 30,
@@ -166,13 +168,12 @@ class Second extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: ListView.separated(
-                                        separatorBuilder: (context, index2) =>
+                                        separatorBuilder: (context, index3) =>
                                             const SizedBox(
                                           height: 10,
                                         ),
                                         itemCount: data.length,
-                                        itemBuilder: ((context, index2) {
-                                          bool done = data[index2]["done"];
+                                        itemBuilder: ((context, index3) {
                                           return Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -180,15 +181,30 @@ class Second extends StatelessWidget {
                                               SizedBox(
                                                 width: 250,
                                                 child: Text(
-                                                  data[index2]["habbitName"],
+                                                  data[index3]["habbitName"],
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                  ),
                                                 ),
                                               ),
-                                              SpecialCheckbox(
-                                                done: done,
-                                                date: date,
-                                                indexOfConstants: index,
-                                                indexOfData: index2,
-                                              ),
+                                              Consumer<SpecialCheckBoxPVD>(
+                                                  builder: (contex,
+                                                      specialCheckboxPVD, _) {
+                                                bool done =
+                                                    data[index3]["done"];
+                                                int indexSCB = index3;
+
+                                                return SpecialCheckbox(
+                                                  done: done,
+                                                  date: date,
+                                                  indexOfConstant:
+                                                      indexOfConstant,
+                                                  indexOfData: index2,
+                                                  indexOfDone: indexSCB,
+                                                  specialCheckBoxPVD:
+                                                      specialCheckboxPVD,
+                                                );
+                                              }),
                                             ],
                                           );
                                         }),

@@ -88,7 +88,11 @@ class _HomeState extends State<Home> {
                 crossAxisSpacing: 70,
                 childAspectRatio: constraints.maxWidth < 800 ? 2 : 1.2,
               );
-
+              if (constraints.maxWidth < 700) {
+                return const Center(
+                  child: Text("Maximize or Increase the screensize pls"),
+                );
+              }
               return Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
                 child: Column(
@@ -130,7 +134,10 @@ class _HomeState extends State<Home> {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return Second(plan: plans);
+                                    return Second(
+                                      plan: plans,
+                                      indexOfConstant: index,
+                                    );
                                   }));
                                 },
                                 onLongPress: () {

@@ -14,7 +14,7 @@ class UpBarHomePage extends StatelessWidget {
           textAlign: TextAlign.right,
           "  Your Consistency, Your habbe",
           style: TextStyle(
-            fontSize: 30,
+            fontSize: 35,
             fontWeight: FontWeight.bold,
           ),
         ),
