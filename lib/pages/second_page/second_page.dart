@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_tracker_flutter/providers/special_checkbox_provider.dart';
 import 'package:habbit_tracker_flutter/widgets/special_checkbox.dart';
-import 'package:provider/provider.dart';
 
 class Second extends StatelessWidget {
   const Second({super.key, required this.plan, required this.indexOfConstant});
@@ -174,6 +172,7 @@ class Second extends StatelessWidget {
                                         ),
                                         itemCount: data.length,
                                         itemBuilder: ((context, index3) {
+                                          bool done = data[index3]["done"];
                                           return Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -187,24 +186,14 @@ class Second extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              Consumer<SpecialCheckBoxPVD>(
-                                                  builder: (contex,
-                                                      specialCheckboxPVD, _) {
-                                                bool done =
-                                                    data[index3]["done"];
-                                                int indexSCB = index3;
-
-                                                return SpecialCheckbox(
-                                                  done: done,
-                                                  date: date,
-                                                  indexOfConstant:
-                                                      indexOfConstant,
-                                                  indexOfData: index2,
-                                                  indexOfDone: indexSCB,
-                                                  specialCheckBoxPVD:
-                                                      specialCheckboxPVD,
-                                                );
-                                              }),
+                                              SpecialCheckbox(
+                                                done: done,
+                                                date: date,
+                                                indexOfConstant:
+                                                    indexOfConstant,
+                                                indexOfData: index2,
+                                                indexOfDone: index3,
+                                              )
                                             ],
                                           );
                                         }),
