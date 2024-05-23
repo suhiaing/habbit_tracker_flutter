@@ -14,7 +14,7 @@ const data = [
           {"date": "17 May", "done": false, "note": ""},
           {"date": "18 May", "done": true, "note": ""},
           {"date": "19 May", "done": true, "note": ""},
-          {"date": "20 May", "done": false, "note": ""}
+          {"date": "20 May", "done": true, "note": ""}
         ]
       },
       {
@@ -42,18 +42,6 @@ const data = [
         ]
       },
       {
-        "habbitName": "Learn Java SE",
-        "data": [
-          {"date": "14 May", "done": false, "note": ""},
-          {"date": "15 May", "done": false, "note": ""},
-          {"date": "16 May", "done": false, "note": ""},
-          {"date": "17 May", "done": false, "note": ""},
-          {"date": "18 May", "done": true, "note": ""},
-          {"date": "19 May", "done": false, "note": ""},
-          {"date": "20 May", "done": false, "note": ""}
-        ]
-      },
-      {
         "habbitName": "Read offical docs of flutter",
         "data": [
           {"date": "14 May", "done": false, "note": ""},
@@ -65,30 +53,6 @@ const data = [
           {"date": "20 May", "done": false, "note": ""}
         ]
       },
-      {
-        "habbitName": "Write diary and Introspect",
-        "data": [
-          {"date": "14 May", "done": false, "note": ""},
-          {"date": "15 May", "done": false, "note": ""},
-          {"date": "16 May", "done": true, "note": ""},
-          {"date": "17 May", "done": false, "note": ""},
-          {"date": "18 May", "done": true, "note": ""},
-          {"date": "19 May", "done": false, "note": ""},
-          {"date": "20 May", "done": false, "note": ""}
-        ]
-      },
-      {
-        "habbitName": "Sleep before 11 PM",
-        "data": [
-          {"date": "14 May", "done": false, "note": ""},
-          {"date": "15 May", "done": false, "note": ""},
-          {"date": "16 May", "done": false, "note": ""},
-          {"date": "17 May", "done": false, "note": ""},
-          {"date": "18 May", "done": true, "note": ""},
-          {"date": "19 May", "done": false, "note": ""},
-          {"date": "20 May", "done": false, "note": ""}
-        ]
-      }
     ]
   },
   {
@@ -323,6 +287,187 @@ const data = [
           {"date": "14 May", "done": true, "note": ""},
           {"date": "15 May", "done": false, "note": ""},
           {"date": "16 May", "done": true, "note": ""}
+        ]
+      }
+    ]
+  }
+];
+
+List constantT = [
+  {
+    "title": "Daily Habbits",
+    "duration": "14 May to 20 May",
+    "moti": "Consistency is Key",
+    "success_rate": 88.54,
+    "habbits": [
+      {
+        "date": "14 May",
+        "data": [
+          {"habbitName": "Wake up early", "done": true},
+          {"habbitName": "Drink 2L of water", "done": true},
+          {"habbitName": "Sleep before 11 P.M", "done": true},
+          {"habbitName": "Code", "done": true},
+          {"habbitName": "Walk about 30 mins", "done": true},
+          {"habbitName": "Not scroll more than 1 hr", "done": true},
+          {"habbitName": "Be consistent", "done": true},
+          {"habbitName": "Focus on my life goals", "done": true},
+          {"habbitName": "Never stop learning", "done": true},
+          {"habbitName": "Keep dreaming and work hard", "done": true},
+          {"habbitName": "Take care myself", "done": true},
+        ]
+      },
+      {
+        "date": "15 May",
+        "data": [
+          {"habbitName": "Wake up early", "done": true},
+          {"habbitName": "Drink 2L of water", "done": true},
+          {"habbitName": "Sleep before 11 P.M", "done": true},
+          {"habbitName": "Code", "done": true},
+          {"habbitName": "Walk about 30 mins", "done": true},
+          {"habbitName": "Not scroll more than 1 hr", "done": true},
+          {"habbitName": "Be consistent", "done": true},
+          {"habbitName": "Focus on my life goals", "done": true},
+          {"habbitName": "Never stop learning", "done": true},
+          {"habbitName": "Keep dreaming and work hard", "done": true},
+          {"habbitName": "Take care myself", "done": true},
+        ]
+      },
+      {
+        "date": "16 May",
+        "data": [
+          {"habbitName": "Wake up early", "done": true},
+          {"habbitName": "Drink 2L of water", "done": true},
+          {"habbitName": "Sleep before 11 P.M", "done": true},
+          {"habbitName": "Code", "done": true},
+          {"habbitName": "Walk about 30 mins", "done": true},
+          {"habbitName": "Not scroll more than 1 hr", "done": true},
+          {"habbitName": "Be consistent", "done": true},
+          {"habbitName": "Focus on my life goals", "done": true},
+          {"habbitName": "Never stop learning", "done": true},
+          {"habbitName": "Keep dreaming and work hard", "done": true},
+          {"habbitName": "Take care myself", "done": true},
+        ]
+      },
+      {
+        "date": "17 May",
+        "data": [
+          {"habbitName": "Wake up early", "done": true},
+          {"habbitName": "Drink 2L of water", "done": true},
+          {"habbitName": "Sleep before 11 P.M", "done": true},
+          {"habbitName": "Code", "done": true},
+          {"habbitName": "Walk about 30 mins", "done": true},
+          {"habbitName": "Not scroll more than 1 hr", "done": true},
+          {"habbitName": "Be consistent", "done": true},
+          {"habbitName": "Focus on my life goals", "done": true},
+          {"habbitName": "Never stop learning", "done": true},
+          {"habbitName": "Keep dreaming and work hard", "done": true},
+          {"habbitName": "Take care myself", "done": true},
+        ]
+      },
+      {
+        "date": "18 May",
+        "data": [
+          {"habbitName": "Wake up early", "done": true},
+          {"habbitName": "Drink 2L of water", "done": true},
+          {"habbitName": "Sleep before 11 P.M", "done": true},
+          {"habbitName": "Code", "done": true},
+          {"habbitName": "Walk about 30 mins", "done": true},
+          {"habbitName": "Not scroll more than 1 hr", "done": true},
+          {"habbitName": "Be consistent", "done": true},
+          {"habbitName": "Focus on my life goals", "done": true},
+          {"habbitName": "Never stop learning", "done": true},
+          {"habbitName": "Keep dreaming and work hard", "done": true},
+          {"habbitName": "Take care myself", "done": true},
+        ]
+      },
+      {
+        "date": "19 May",
+        "data": [
+          {"habbitName": "Wake up early", "done": true},
+          {"habbitName": "Drink 2L of water", "done": true},
+          {"habbitName": "Sleep before 11 P.M", "done": true},
+          {"habbitName": "Code", "done": true},
+          {"habbitName": "Walk about 30 mins", "done": true},
+          {"habbitName": "Not scroll more than 1 hr", "done": true},
+          {"habbitName": "Be consistent", "done": true},
+          {"habbitName": "Focus on my life goals", "done": true},
+          {"habbitName": "Never stop learning", "done": true},
+          {"habbitName": "Keep dreaming and work hard", "done": true},
+          {"habbitName": "Take care myself", "done": true},
+        ]
+      },
+      {
+        "date": "20 May",
+        "data": [
+          {"habbitName": "Wake up early", "done": true},
+          {"habbitName": "Drink 2L of water", "done": true},
+          {"habbitName": "Sleep before 11 P.M", "done": true},
+          {"habbitName": "Code", "done": true},
+          {"habbitName": "Walk about 30 mins", "done": true},
+          {"habbitName": "Not scroll more than 1 hr", "done": true},
+          {"habbitName": "Be consistent", "done": true},
+          {"habbitName": "Focus on my life goals", "done": true},
+          {"habbitName": "Never stop learning", "done": true},
+          {"habbitName": "Keep dreaming and work hard", "done": true},
+          {"habbitName": "Take care myself", "done": true},
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Self-Improment Planner",
+    "duration": "23 May to 27 May",
+    "moti": "take time",
+    "success_rate": 88.54,
+    "habbits": [
+      {
+        "date": "23 May",
+        "data": [
+          {"habbitName": "Code everyday", "done": true},
+          {"habbitName": "Read 1 article of FH mz", "done": true},
+          {"habbitName": "Listen to 1 Eng Conversation", "done": true},
+          {"habbitName": "Read flutter offical docs", "done": true},
+          {"habbitName": "Write diary in Eng and Introspect", "done": true}
+        ]
+      },
+      {
+        "date": "24 May",
+        "data": [
+          {"habbitName": "Code everyday", "done": true},
+          {"habbitName": "Read 1 article of FH mz", "done": true},
+          {"habbitName": "Listen to 1 Eng Conversation", "done": true},
+          {"habbitName": "Read flutter offical docs", "done": true},
+          {"habbitName": "Write diary in Eng and Introspect", "done": true}
+        ]
+      },
+      {
+        "date": "25 May",
+        "data": [
+          {"habbitName": "Code everyday", "done": true},
+          {"habbitName": "Read 1 article of FH mz", "done": true},
+          {"habbitName": "Listen to 1 Eng Conversation", "done": true},
+          {"habbitName": "Read flutter offical docs", "done": true},
+          {"habbitName": "Write diary in Eng and Introspect", "done": true}
+        ]
+      },
+      {
+        "date": "26 May",
+        "data": [
+          {"habbitName": "Code everyday", "done": true},
+          {"habbitName": "Read 1 article of FH mz", "done": true},
+          {"habbitName": "Listen to 1 Eng Conversation", "done": true},
+          {"habbitName": "Read flutter offical docs", "done": true},
+          {"habbitName": "Write diary in Eng and Introspect", "done": true}
+        ]
+      },
+      {
+        "date": "27 May",
+        "data": [
+          {"habbitName": "Code everyday", "done": true},
+          {"habbitName": "Read 1 article of FH mz", "done": true},
+          {"habbitName": "Listen to 1 Eng Conversation", "done": true},
+          {"habbitName": "Read flutter offical docs", "done": true},
+          {"habbitName": "Write diary in Eng and Introspect", "done": true}
         ]
       }
     ]

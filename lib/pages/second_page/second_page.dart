@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:habbit_tracker_flutter/widgets/special_checkbox.dart';
 import 'package:provider/provider.dart';
 
@@ -70,23 +71,26 @@ class Second extends StatelessWidget {
             ],
           ),
         ),
-        body: LayoutBuilder(builder: (context, constraints) {
-          return Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Container(
-              child: Scrollbar(
-                thumbVisibility: true,
-                trackVisibility: true,
-                thickness: 5,
-                controller: scrollController,
-                child: SizedBox(
-                  height: 1000,
-                  child: ListView.builder(
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Container(
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  trackVisibility: true,
+                  thickness: 5,
+                  controller: scrollController,
+                  child: SizedBox(
+                    height: 1000,
+                    child: ListView.builder(
                       //itemCount = 7 for index 1
                       controller: scrollController,
-                      itemCount: plan["habbits"][0]["data"].length,
+                      itemCount: plan["habbits"].length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        List data = plan["habbits"][index]["data"];
+                        String date = plan["habbits"][index]["date"];
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -140,82 +144,71 @@ class Second extends StatelessWidget {
                                 ),
                                 child: Column(
                                   children: [
-                                    Container(
-                                      width: 100,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          color: Colors.lightGreen.shade400,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Center(
-                                        child: Text(
-                                          //bla bla
-                                          plan["habbits"][0]["data"][index]
-                                              ["date"],
-                                          style: const TextStyle(
-                                              fontSize: 17,
-                                              color: Colors.white),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Container(
+                                        width: 100,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            color: Colors.lightGreen.shade400,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Center(
+                                          child: Text(
+                                            //bla bla
+                                            date,
+                                            style: const TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    DataSecond(plan: plan),
+                                    Expanded(
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index2) =>
+                                            const SizedBox(
+                                          height: 10,
+                                        ),
+                                        itemCount: data.length,
+                                        itemBuilder: ((context, index2) {
+                                          bool done = data[index2]["done"];
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                width: 250,
+                                                child: Text(
+                                                  data[index2]["habbitName"],
+                                                ),
+                                              ),
+                                              SpecialCheckbox(
+                                                done: done,
+                                                date: date,
+                                                indexOfConstants: index,
+                                                indexOfData: index2,
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
                             )
                           ],
                         );
-                      }),
+                      },
+                    ),
+                  ),
                 ),
               ),
-            ),
-          );
-        }),
+            );
+          },
+        ),
       ),
     );
-  }
-}
-
-class DataSecond extends StatelessWidget {
-  const DataSecond({
-    super.key,
-    required this.plan,
-  });
-
-  final Map plan;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: ListView.separated(
-      itemCount: plan["habbits"].length,
-      separatorBuilder: (BuildContext context, int index) => const SizedBox(
-        height: 10,
-      ),
-      itemBuilder: (BuildContext context, int index2) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 200,
-                child: Text(plan["habbits"][index2]["habbitName"]),
-              ),
-              Consumer(builder: (context, specialCheckobxPVD, _) {
-                bool done = plan["habbits"][index2]["data"][0]["done"];
-
-                return SpecialCheckbox(
-                  done: done,
-                  date: plan["habbits"][0]["data"][index2]["date"],
-                  indexOfConstants: 3,
-                  indexOfData: index2,
-                );
-              })
-            ],
-          ),
-        );
-      },
-    ));
   }
 }
