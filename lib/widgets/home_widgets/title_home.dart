@@ -16,83 +16,85 @@ class TitleHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        child: Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 255,
-            child: Center(
-              child: Text(
-                title,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 255,
+          child: Center(
+            child: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 20,
               ),
             ),
           ),
-          const SizedBox(
-            width: 10,
-          ),
-          IconButton(
-              onPressed: () {
-                final titleRenameController = TextEditingController();
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('Wanna rename $title ?'),
-                        content: SizedBox(
-                          height: 50,
-                          child: TextField(
-                            controller: titleRenameController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter a new plan name',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        IconButton(
+            onPressed: () {
+              final titleRenameController = TextEditingController();
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Wanna rename $title ?'),
+                      content: SizedBox(
+                        height: 50,
+                        child: TextField(
+                          controller: titleRenameController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter a new plan name',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
                         ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              if (titleRenameController.text != "") {
-                                titleHomePVD.rename(
-                                    titleRenameController.text, index);
-                                Navigator.pop(context);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    showCloseIcon: true,
-                                    content: Text(
-                                      'Enter the name please',
-                                    ),
-                                    duration: Duration(milliseconds: 1000),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            if (titleRenameController.text != "") {
+                              titleHomePVD.rename(
+                                  titleRenameController.text, index);
+                              Navigator.pop(context);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  showCloseIcon: true,
+                                  content: Text(
+                                    'Enter the name please',
                                   ),
-                                );
-                              }
-                            },
-                            child: const Text('OK'),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
+                                  duration: Duration(milliseconds: 1000),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text(
+                            'OK',
+                            style: TextStyle(
+                              color: Colors.green,
                             ),
                           ),
-                        ],
-                      );
-                    });
-              },
-              icon: const Icon(Icons.edit))
-        ],
-      ),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            },
+            icon: const Icon(Icons.edit))
+      ],
     ));
   }
 }

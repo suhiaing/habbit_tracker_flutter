@@ -64,6 +64,11 @@ class _HomeState extends State<Home> {
           constants = snapshot.data!;
           return LayoutBuilder(
             builder: ((context, constraints) {
+              if (constraints.maxWidth < 650) {
+                return const Center(
+                  child: Text("Maximize or increase the screen size, pls"),
+                );
+              }
               var boxDecorationHome = BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: const [
@@ -88,13 +93,13 @@ class _HomeState extends State<Home> {
                 crossAxisSpacing: 70,
                 childAspectRatio: constraints.maxWidth < 800 ? 2 : 1.2,
               );
-              if (constraints.maxWidth < 700) {
+              if (constraints.maxWidth < 705) {
                 return const Center(
                   child: Text("Maximize or Increase the screensize pls"),
                 );
               }
               return Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                padding: const EdgeInsets.only(right: 10, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -118,14 +123,14 @@ class _HomeState extends State<Home> {
                               var circularPercentIndicator =
                                   CircularPercentIndicator(
                                 radius: 85,
-                                lineWidth: 16,
+                                lineWidth: 15,
                                 percent: (successRate / 100),
                                 progressColor: successRateColor(successRate),
                                 backgroundColor: successRateColor(successRate)
                                     .withOpacity(0.25),
                                 center: Text(
                                   "${successRate.toString()}%",
-                                  style: const TextStyle(fontSize: 25),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
                                 circularStrokeCap: CircularStrokeCap.round,
                               );
@@ -167,7 +172,7 @@ class _HomeState extends State<Home> {
                                               child: const Text(
                                                 "No",
                                                 style: TextStyle(
-                                                    color: Colors.blue),
+                                                    color: Colors.green),
                                               ),
                                             ),
                                           ],
