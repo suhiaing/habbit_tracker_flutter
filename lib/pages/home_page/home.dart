@@ -52,11 +52,6 @@ class _HomeState extends State<Home> {
           constants = snapshot.data!;
           return LayoutBuilder(
             builder: ((context, constraints) {
-              if (constraints.maxWidth < 650) {
-                return const Center(
-                  child: Text("Maximize or increase the screen size, pls"),
-                );
-              }
               var boxDecorationHome = BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: const [
@@ -81,13 +76,13 @@ class _HomeState extends State<Home> {
                 crossAxisSpacing: 70,
                 childAspectRatio: constraints.maxWidth < 800 ? 2 : 1.2,
               );
-              if (constraints.maxWidth < 705) {
+              if (constraints.maxWidth < 700) {
                 return const Center(
                   child: Text("Maximize or Increase the screensize pls"),
                 );
               }
               return Padding(
-                padding: const EdgeInsets.only(right: 10, top: 10),
+                padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -144,7 +139,7 @@ class _HomeState extends State<Home> {
                                               child: const Text(
                                                 "No",
                                                 style: TextStyle(
-                                                    color: Colors.green),
+                                                    color: Colors.blue),
                                               ),
                                             ),
                                           ],
