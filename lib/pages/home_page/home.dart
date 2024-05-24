@@ -5,9 +5,9 @@ import 'package:habbit_tracker_flutter/pages/second_page/second_page.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
 import 'package:habbit_tracker_flutter/providers/star_provider.dart';
+import 'package:habbit_tracker_flutter/widgets/home_widgets/percentage_indicator.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/title_home.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/up_bar_home_page.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -25,18 +25,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     constantF = readFile();
-  }
-
-  Color successRateColor(double successRate) {
-    if (successRate >= 70) {
-      return Colors.green;
-    } else if (successRate >= 40) {
-      return Colors.orange.shade700;
-    } else if (successRate >= 0) {
-      return Colors.red.shade700;
-    }
-
-    return Colors.black;
   }
 
   int itemCountByConstraints(BoxConstraints constraints) {
@@ -118,22 +106,6 @@ class _HomeState extends State<Home> {
                             itemBuilder: (context, index) {
                               Map plans = constants[index];
                               String duration = plans["duration"];
-                              double successRate = plans["success_rate"];
-
-                              var circularPercentIndicator =
-                                  CircularPercentIndicator(
-                                radius: 85,
-                                lineWidth: 15,
-                                percent: (successRate / 100),
-                                progressColor: successRateColor(successRate),
-                                backgroundColor: successRateColor(successRate)
-                                    .withOpacity(0.25),
-                                center: Text(
-                                  "${successRate.toString()}%",
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                                circularStrokeCap: CircularStrokeCap.round,
-                              );
 
                               return GestureDetector(
                                 onTap: () {
@@ -185,7 +157,9 @@ class _HomeState extends State<Home> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      circularPercentIndicator,
+                                      PercentageIndicator(
+                                        index: index,
+                                      ),
                                       Consumer<TitleHomePVD>(
                                           builder: ((context, titleHomePVD, _) {
                                         String titleForTitleHomePVd =

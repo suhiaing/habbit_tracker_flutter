@@ -5,6 +5,7 @@ class StarPVD extends PVD {
   int starpvd = stars;
   void createNewPlan() {
     starpvd -= 20;
+
     ntWStars(starpvd);
   }
 

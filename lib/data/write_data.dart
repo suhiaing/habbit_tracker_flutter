@@ -18,7 +18,7 @@ Future<void> writeData(List<dynamic> content) async {
 
 Future<void> wirteStar(int amount) async {
   try {
-    final file = File("data_amount.txt");
+    final file = File("stars.txt");
 
     if (!await file.exists()) {
       await file.create(recursive: true);

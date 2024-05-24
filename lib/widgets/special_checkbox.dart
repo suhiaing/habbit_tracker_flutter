@@ -43,7 +43,7 @@ class _SpecialCheckboxState extends State<SpecialCheckbox> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         String today = todayDate();
         if (widget.date == today) {
           setState(() {
