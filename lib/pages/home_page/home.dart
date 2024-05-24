@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/data/constants.dart';
 import 'package:habbit_tracker_flutter/data/read_file.dart';
+import 'package:habbit_tracker_flutter/data/write_data.dart';
 import 'package:habbit_tracker_flutter/pages/second_page/second_page.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
@@ -8,6 +9,7 @@ import 'package:habbit_tracker_flutter/providers/star_provider.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/percentage_indicator.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/title_home.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/up_bar_home_page.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -76,6 +78,28 @@ class _HomeState extends State<Home> {
                 crossAxisSpacing: 70,
                 childAspectRatio: constraints.maxWidth < 800 ? 2 : 1.2,
               );
+              double calculateSuccessRate(int index) {
+                List dateCount = constants[index]["habbits"];
+
+                int successRateRaw = 0;
+                int count = 0;
+                for (int i = 0; i < dateCount.length; i++) {
+                  for (int j = 0; j < dateCount[i]["data"].length; j++) {
+                    count += 1;
+
+                    if (dateCount[i]["data"][j]["done"] == true) {
+                      successRateRaw += 1;
+                    }
+                  }
+                }
+
+                double successRate = (successRateRaw / count) * 100;
+                constants[index]["successRate"] = successRate;
+                writeData(constants);
+
+                return successRate;
+              }
+
               if (constraints.maxWidth < 700) {
                 return const Center(
                   child: Text("Maximize or Increase the screensize pls"),
@@ -93,6 +117,18 @@ class _HomeState extends State<Home> {
                       height: 30,
                     ),
                     Consumer<HomePVD>(builder: (context, homePVD, _) {
+                      Color successRateColor(double successRate) {
+                        if (successRate >= 70) {
+                          return Colors.green;
+                        } else if (successRate >= 40) {
+                          return Colors.orange.shade700;
+                        } else if (successRate >= 0) {
+                          return Colors.red.shade700;
+                        }
+
+                        return Colors.black;
+                      }
+
                       return Expanded(
                         child: GridView.builder(
                             itemCount: constants.length,
@@ -152,8 +188,22 @@ class _HomeState extends State<Home> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      PercentageIndicator(
-                                        index: index,
+                                      CircularPercentIndicator(
+                                        radius: 85,
+                                        lineWidth: 15,
+                                        percent:
+                                            (calculateSuccessRate(index) / 100),
+                                        progressColor: successRateColor(
+                                            calculateSuccessRate(index)),
+                                        backgroundColor: successRateColor(
+                                                calculateSuccessRate(index))
+                                            .withOpacity(0.25),
+                                        center: Text(
+                                          "${calculateSuccessRate(index).toStringAsFixed(1)}%",
+                                          style: const TextStyle(fontSize: 20),
+                                        ),
+                                        circularStrokeCap:
+                                            CircularStrokeCap.round,
                                       ),
                                       Consumer<TitleHomePVD>(
                                           builder: ((context, titleHomePVD, _) {
