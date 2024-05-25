@@ -6,7 +6,6 @@ import 'package:habbit_tracker_flutter/pages/second_page/second_page.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
 import 'package:habbit_tracker_flutter/providers/star_provider.dart';
-import 'package:habbit_tracker_flutter/widgets/home_widgets/percentage_indicator.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/title_home.dart';
 import 'package:habbit_tracker_flutter/widgets/home_widgets/up_bar_home_page.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -100,137 +99,145 @@ class _HomeState extends State<Home> {
                 return successRate;
               }
 
-              if (constraints.maxWidth < 700) {
+              if (constraints.maxWidth < 730) {
                 return const Center(
                   child: Text("Maximize or Increase the screensize pls"),
                 );
               }
-              return Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    UpBarHomePage(
-                      starPVD: widget.starPVD,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Consumer<HomePVD>(builder: (context, homePVD, _) {
-                      Color successRateColor(double successRate) {
-                        if (successRate >= 70) {
-                          return Colors.green;
-                        } else if (successRate >= 40) {
-                          return Colors.orange.shade700;
-                        } else if (successRate >= 0) {
-                          return Colors.red.shade700;
-                        }
-
-                        return Colors.black;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      UpBarHomePage(
+                        starPVD: widget.starPVD,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              constantF = readFile();
+                            });
+                          },
+                          icon: const Icon(Icons.refresh)),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Consumer<HomePVD>(builder: (context, homePVD, _) {
+                    Color successRateColor(double successRate) {
+                      if (successRate >= 70) {
+                        return Colors.green;
+                      } else if (successRate >= 40) {
+                        return Colors.orange.shade700;
+                      } else if (successRate >= 0) {
+                        return Colors.red.shade700;
                       }
 
-                      return Expanded(
-                        child: GridView.builder(
-                            itemCount: constants.length,
-                            gridDelegate:
-                                sliverGridDelegateWithFixedCrossAxisCountHome,
-                            itemBuilder: (context, index) {
-                              Map plans = constants[index];
-                              String duration = plans["duration"];
+                      return Colors.black;
+                    }
 
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return Second(
-                                      plan: plans,
-                                      indexOfConstant: index,
-                                    );
-                                  }));
-                                },
-                                onLongPress: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: ((context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              "Do you want to delete ${plans["title"]} ?"),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                homePVD.removePlan(index);
-                                                widget.starPVD.deletePlan();
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text(
-                                                "Yes",
-                                                style: TextStyle(
-                                                    color: Colors.red),
-                                              ),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text(
-                                                "No",
-                                                style: TextStyle(
-                                                    color: Colors.blue),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }));
-                                },
-                                child: Container(
-                                  decoration: boxDecorationHome,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      CircularPercentIndicator(
-                                        radius: 85,
-                                        lineWidth: 15,
-                                        percent:
-                                            (calculateSuccessRate(index) / 100),
-                                        progressColor: successRateColor(
-                                            calculateSuccessRate(index)),
-                                        backgroundColor: successRateColor(
-                                                calculateSuccessRate(index))
-                                            .withOpacity(0.25),
-                                        center: Text(
-                                          "${calculateSuccessRate(index).toStringAsFixed(1)}%",
-                                          style: const TextStyle(fontSize: 20),
-                                        ),
-                                        circularStrokeCap:
-                                            CircularStrokeCap.round,
-                                      ),
-                                      Consumer<TitleHomePVD>(
-                                          builder: ((context, titleHomePVD, _) {
-                                        String titleForTitleHomePVd =
-                                            constants[index]["title"];
+                    return Expanded(
+                      child: GridView.builder(
+                          itemCount: constants.length,
+                          gridDelegate:
+                              sliverGridDelegateWithFixedCrossAxisCountHome,
+                          itemBuilder: (context, index) {
+                            Map plans = constants[index];
+                            String duration = plans["duration"];
 
-                                        return TitleHome(
-                                          title: titleForTitleHomePVd,
-                                          index: index,
-                                          titleHomePVD: titleHomePVD,
-                                        );
-                                      })),
-                                      Text(
-                                        duration,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.blueGrey.shade300),
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Second(
+                                    plan: plans,
+                                    indexOfConstant: index,
+                                  );
+                                }));
+                              },
+                              onLongPress: () {
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                            "Do you want to delete ${plans["title"]} ?"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              homePVD.removePlan(index);
+                                              widget.starPVD.deletePlan();
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text(
+                                              "Yes",
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text(
+                                              "No",
+                                              style:
+                                                  TextStyle(color: Colors.blue),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }));
+                              },
+                              child: Container(
+                                decoration: boxDecorationHome,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    CircularPercentIndicator(
+                                      radius: 85,
+                                      lineWidth: 15,
+                                      percent:
+                                          (calculateSuccessRate(index) / 100),
+                                      progressColor: successRateColor(
+                                          calculateSuccessRate(index)),
+                                      backgroundColor: successRateColor(
+                                              calculateSuccessRate(index))
+                                          .withOpacity(0.25),
+                                      center: Text(
+                                        "${calculateSuccessRate(index).toStringAsFixed(1)}%",
+                                        style: const TextStyle(fontSize: 20),
                                       ),
-                                    ],
-                                  ),
+                                      circularStrokeCap:
+                                          CircularStrokeCap.round,
+                                    ),
+                                    Consumer<TitleHomePVD>(
+                                        builder: ((context, titleHomePVD, _) {
+                                      String titleForTitleHomePVd =
+                                          constants[index]["title"];
+
+                                      return TitleHome(
+                                        title: titleForTitleHomePVd,
+                                        index: index,
+                                        titleHomePVD: titleHomePVD,
+                                      );
+                                    })),
+                                    Text(
+                                      duration,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.blueGrey.shade300),
+                                    ),
+                                  ],
                                 ),
-                              );
-                            }),
-                      );
-                    }),
-                  ],
-                ),
+                              ),
+                            );
+                          }),
+                    );
+                  }),
+                ],
               );
             }),
           );

@@ -7,25 +7,27 @@ class UpBarHomePage extends StatelessWidget {
   final StarPVD starPVD;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Text(
-          textAlign: TextAlign.right,
-          "  Your Consistency, Your habbe",
-          style: TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.bold,
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Text(
+            textAlign: TextAlign.right,
+            "  Your Consistency, Your habbe",
+            style: TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        const Expanded(child: SizedBox()),
-        Stars(
-          starPVD: starPVD,
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-      ],
+          const Expanded(child: SizedBox()),
+          Stars(
+            starPVD: starPVD,
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+        ],
+      ),
     );
   }
 }
