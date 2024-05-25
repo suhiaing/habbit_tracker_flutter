@@ -26,7 +26,10 @@ class _DailyHabbitState extends State<DailyHabbit> {
         width: 30,
         height: 30,
         decoration: BoxDecoration(
-          color: done == true ? Colors.green : Colors.red,
+          border: done != true
+              ? Border.all(color: Colors.grey, width: 1.5)
+              : Border.all(color: Colors.green, width: 0),
+          color: done == true ? Colors.green : Colors.white,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Icon(
@@ -39,7 +42,10 @@ class _DailyHabbitState extends State<DailyHabbit> {
     return Consumer<DailyProvider>(builder: (context, dailyPVD, _) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text("Daily Healthy Habbits"),
+          title: const Text(
+            "Daily Healthy Habbits",
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
         ),
         body: FutureBuilder(
           future: dailyDataA,
@@ -61,6 +67,9 @@ class _DailyHabbitState extends State<DailyHabbit> {
                       Expanded(
                           child: Text(
                         dailyData[index]["name"],
+                        style: const TextStyle(
+                          fontSize: 17,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       )),
                       GestureDetector(
