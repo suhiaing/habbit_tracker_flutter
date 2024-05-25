@@ -7,4 +7,8 @@ class HomePVD extends PVD {
     constants.remove(planTORemove);
     ntWData();
   }
+
+  void addPlan(Map planToAdd) {
+    constants.add(planToAdd);
+  }
 }

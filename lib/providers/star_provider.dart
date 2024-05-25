@@ -15,6 +15,7 @@ class StarPVD extends PVD {
   }
 
   void getHundredPercentage() {
+    print("H0000");
     starpvd += 100;
     ntWStars(starpvd);
   }

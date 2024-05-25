@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/data/read_file.dart';
 import 'package:habbit_tracker_flutter/pages/home_page/home.dart';
-import 'package:habbit_tracker_flutter/providers/star_provider.dart';
-import 'package:habbit_tracker_flutter/data/stars.dart';
-import 'package:provider/provider.dart';
 
 class HomeWithStarPVD extends StatefulWidget {
   const HomeWithStarPVD({super.key});
@@ -22,19 +19,6 @@ class _HomeWithStarPVDState extends State<HomeWithStarPVD> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: starR,
-      builder: ((context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        }
-        stars = snapshot.data!;
-        return Consumer<StarPVD>(builder: (context, starPVD, _) {
-          return Home(
-            starPVD: starPVD,
-          );
-        });
-      }),
-    );
+    return const Home();
   }
 }

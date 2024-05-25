@@ -75,7 +75,12 @@ class TitleHome extends StatelessWidget {
                                 );
                               }
                             },
-                            child: const Text('OK'),
+                            child: const Text(
+                              'OK',
+                              style: TextStyle(
+                                color: Colors.green,
+                              ),
+                            ),
                           ),
                           TextButton(
                             onPressed: () => Navigator.pop(context),
@@ -90,7 +95,10 @@ class TitleHome extends StatelessWidget {
                       );
                     });
               },
-              icon: const Icon(Icons.edit))
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.black,
+              ))
         ],
       ),
     ));
