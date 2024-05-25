@@ -25,3 +25,15 @@ Future<int> readStar() async {
     return Future.error('Error reading file: $e');
   }
 }
+
+Future<List<dynamic>> readDaily() async {
+  final file = File("daily_data.json");
+  final jsonString = await file.readAsString();
+
+  try {
+    final data = jsonDecode(jsonString) as List<dynamic>;
+    return data;
+  } catch (e) {
+    return Future.error('Error reading file: $e');
+  }
+}

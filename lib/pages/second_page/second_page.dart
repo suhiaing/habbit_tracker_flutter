@@ -14,6 +14,11 @@ class Second extends StatelessWidget {
     String duration = plan["duration"];
     String moti = plan["moti"];
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green, // Change the app's color scheme to blue
+        ),
+      ),
       home: Scaffold(
         appBar: AppBar(
           toolbarHeight: 30,
@@ -157,27 +162,32 @@ class Second extends StatelessWidget {
                                   itemCount: data.length,
                                   itemBuilder: ((context, index3) {
                                     bool done = data[index3]["done"];
-                                    return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          width: 250,
-                                          child: Text(
-                                            data[index3]["habbitName"],
-                                            style: const TextStyle(
-                                              fontSize: 16,
+                                    String note = data[index3]["note"];
+                                    return Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            width: 250,
+                                            child: Text(
+                                              data[index3]["habbitName"],
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SpecialCheckbox(
-                                          done: done,
-                                          date: date,
-                                          indexOfConstant: indexOfConstant,
-                                          indexOfData: index2,
-                                          indexOfDone: index3,
-                                        )
-                                      ],
+                                          SpecialCheckbox(
+                                            done: done,
+                                            date: date,
+                                            note: note,
+                                            indexOfConstant: indexOfConstant,
+                                            indexOfData: index2,
+                                            indexOfDone: index3,
+                                          )
+                                        ],
+                                      ),
                                     );
                                   }),
                                 ),

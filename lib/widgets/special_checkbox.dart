@@ -10,6 +10,7 @@ class SpecialCheckbox extends StatefulWidget {
   final int indexOfConstant;
   final int indexOfData;
   final int indexOfDone;
+  String note;
   SpecialCheckbox({
     super.key,
     required this.done,
@@ -17,6 +18,7 @@ class SpecialCheckbox extends StatefulWidget {
     required this.indexOfConstant,
     required this.indexOfData,
     required this.indexOfDone,
+    required this.note,
   });
 
   @override
@@ -43,30 +45,88 @@ class _SpecialCheckboxState extends State<SpecialCheckbox> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        String today = todayDate();
-        if (widget.date == today) {
-          setState(() {
-            widget.done = !widget.done;
-          });
-          constants[widget.indexOfConstant]["habbits"][widget.indexOfData]
-              ["data"][widget.indexOfDone]["done"] = widget.done;
-          writeData(constants);
-        } else {
-          showMySnackbar(context);
-        }
-      },
-      child: SizedBox(
-        width: 40,
-        height: 40,
-        child: widget.done == true
-            ? const Icon(
-                Icons.check,
-                color: Colors.green,
-                size: 35,
-              )
-            : const Icon(Icons.clear, color: Colors.red, size: 35),
-      ),
-    );
+        onTap: () async {
+          String today = todayDate();
+          if (widget.date == today) {
+            setState(() {
+              widget.done = !widget.done;
+            });
+            constants[widget.indexOfConstant]["habbits"][widget.indexOfData]
+                ["data"][widget.indexOfDone]["done"] = widget.done;
+            writeData(constants);
+          } else {
+            showMySnackbar(context);
+          }
+        },
+        onLongPress: () {
+          final noteController = TextEditingController();
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("add a short note"),
+                  content: SizedBox(
+                    height: 100,
+                    child: Column(
+                      children: [
+                        Text(widget.note),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: TextField(
+                            controller: noteController,
+                            decoration: InputDecoration(
+                              hintText: 'Enter new note',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            widget.note = noteController.text;
+                            constants[widget.indexOfConstant]["habbits"]
+                                        [widget.indexOfData]["data"]
+                                    [widget.indexOfDone]["note"] =
+                                noteController.text;
+                          });
+
+                          writeData(constants);
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Okay")),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        "Cancel",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ],
+                );
+              });
+        },
+        child: Container(
+          width: 35,
+          height: 35,
+          decoration: BoxDecoration(
+            color: widget.done == true ? Colors.green : Colors.red,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Icon(
+              color: Colors.white,
+              size: 25,
+              widget.done == true ? Icons.check : Icons.clear),
+        ));
   }
 }

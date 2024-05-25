@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/data/constants.dart';
+import 'package:habbit_tracker_flutter/data/daily_data.dart';
 import 'package:habbit_tracker_flutter/data/write_data.dart';
 
 class PVD extends ChangeNotifier {
@@ -8,8 +9,8 @@ class PVD extends ChangeNotifier {
     writeData(constants);
   }
 
-  void ntWStars(int stars) {
+  void ntWDailyData() {
     notifyListeners();
-    wirteStar(stars);
+    writeDailyData(dailyData);
   }
 }
