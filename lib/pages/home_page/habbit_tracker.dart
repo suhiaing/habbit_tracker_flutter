@@ -267,11 +267,7 @@ class _HabbitTrackerState extends State<HabbitTracker> {
               }),
           floatingActionButton: FloatingActionButton(
               onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: ((context) => const AlertDialog(
-                          title: Text("Add a new plan"),
-                        )));
+                Navigator.pushNamed(context, '/AddPlanForm');
               },
               tooltip: 'Add a plan',
               child: const Icon(Icons.add)));
