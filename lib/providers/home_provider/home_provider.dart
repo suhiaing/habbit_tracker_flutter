@@ -10,5 +10,6 @@ class HomePVD extends PVD {
 
   void addPlan(Map planToAdd) {
     constants.add(planToAdd);
+    ntWData();
   }
 }

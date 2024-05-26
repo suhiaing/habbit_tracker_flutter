@@ -3,7 +3,7 @@ List<dynamic> data = [
     "title": "Daily Habbits",
     "duration": "14 May to 20 May",
     "moti": "Key is Consistency",
-    "hundredPercentage": true,
+    "successRate": 97.40259740259741,
     "habbits": [
       {
         "date": "14 May",
@@ -206,6 +206,7 @@ List<dynamic> data = [
         ]
       }
     ],
-    "successRate": 97.40259740259741
   }
 ];
+
+Map dataTest = {};

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_tracker_flutter/data/constants.dart';
 import 'package:habbit_tracker_flutter/data/read_file.dart';
 import 'package:habbit_tracker_flutter/data/write_data.dart';
+import 'package:habbit_tracker_flutter/pages/home_page/add_form.dart';
 import 'package:habbit_tracker_flutter/pages/second_page/second_page.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
 import 'package:habbit_tracker_flutter/providers/home_provider/title_provider_home.dart';
@@ -267,7 +268,11 @@ class _HabbitTrackerState extends State<HabbitTracker> {
               }),
           floatingActionButton: FloatingActionButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/AddPlanForm');
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return AddPlanForm(
+                    homePVD: homePVD,
+                  );
+                }));
               },
               tooltip: 'Add a plan',
               child: const Icon(Icons.add)));

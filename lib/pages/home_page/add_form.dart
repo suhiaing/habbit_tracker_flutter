@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_tracker_flutter/providers/home_provider/home_provider.dart';
+import 'package:intl/intl.dart';
 
 class AddPlanForm extends StatefulWidget {
+  final HomePVD homePVD;
   const AddPlanForm({
+    required this.homePVD,
     super.key,
   });
   @override
@@ -9,10 +13,10 @@ class AddPlanForm extends StatefulWidget {
 }
 
 class _AddPlanFormState extends State<AddPlanForm> {
-  final newNameController = TextEditingController();
+  final titleController = TextEditingController();
   final habbitNameController = TextEditingController();
-
-  String _dateValue = "7";
+  final motiController = TextEditingController();
+  String dateValue = "7";
 
   final List<String> _itemValue = ["5", "7", "10", "15", "20", "30"];
   List<String> habbitName = [];
@@ -37,7 +41,7 @@ class _AddPlanFormState extends State<AddPlanForm> {
               ),
               Container(
                 width: 600,
-                height: 800,
+                height: 400,
                 decoration: BoxDecoration(
                     color: Colors.black12,
                     borderRadius: BorderRadius.circular(30),
@@ -58,14 +62,15 @@ class _AddPlanFormState extends State<AddPlanForm> {
                 child: Center(
                   child: SizedBox(
                     width: 500,
-                    height: 700,
+                    height: 350,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
                             Expanded(
                               child: TextField(
-                                controller: newNameController,
+                                controller: titleController,
                                 decoration: const InputDecoration(
                                     hintText: "Enter the name of new plan",
                                     hintStyle: TextStyle(color: Colors.black)),
@@ -83,7 +88,7 @@ class _AddPlanFormState extends State<AddPlanForm> {
                                   ),
                                   onChanged: (String? newValue) {
                                     setState(() {
-                                      _dateValue = newValue!;
+                                      dateValue = newValue!;
                                     });
                                   },
                                   items: List.generate(
@@ -95,11 +100,25 @@ class _AddPlanFormState extends State<AddPlanForm> {
                                       ),
                                     ),
                                   ),
-                                  value: _dateValue,
+                                  value: dateValue,
                                 ),
                               ),
                             )
                           ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: 500,
+                          height: 50,
+                          child: TextField(
+                            controller: motiController,
+                            decoration: const InputDecoration(
+                                hintText:
+                                    "the phrase that can motivate you. (3 words to 5 words recommend)",
+                                hintStyle: TextStyle(color: Colors.black)),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -201,6 +220,11 @@ class _AddPlanFormState extends State<AddPlanForm> {
                       color: const Color.fromARGB(255, 38, 170, 43),
                       child: TextButton(
                           onPressed: () {
+                            widget.homePVD.addPlan(dataFormatting(
+                                title: titleController.text,
+                                habbitNames: habbitName,
+                                duration: int.parse(dateValue),
+                                moti: motiController.text));
                             Navigator.pop(context);
                           },
                           child: const Row(
@@ -253,4 +277,52 @@ class _AddPlanFormState extends State<AddPlanForm> {
       ),
     );
   }
+}
+
+Map dataFormatting({
+  required String title,
+  required List habbitNames,
+  required int duration,
+  required String moti,
+}) {
+  //singular data_es
+  List<String> dateList = [];
+  String durationInText = "";
+
+  //date
+  for (int i = 0; i < duration; i++) {
+    DateTime date = DateTime.now().add(Duration(days: i));
+    DateFormat formatter = DateFormat('d MMM');
+    String formattedDate = formatter.format(date);
+    dateList.add(formattedDate);
+  }
+
+  int lastIndexOfdateList = dateList.length - 1;
+  String firstDay = dateList[0];
+  String secondDay = dateList[lastIndexOfdateList];
+  durationInText = (firstDay) + (" ") + ("to") + (" ") + (secondDay);
+
+  Map plans = {
+    "title": title,
+    "duration": durationInText,
+    "moti": moti,
+    "successRate": 0.00,
+    "habbits": List.generate(duration, (i) {
+      return {
+        "date": dateList[i],
+        "data": List.generate(
+          habbitNames.length,
+          (j) {
+            return {
+              "habbitName": habbitNames[j],
+              "done": false,
+              "note": "note"
+            };
+          },
+        ),
+      };
+    }),
+  };
+
+  return plans;
 }
